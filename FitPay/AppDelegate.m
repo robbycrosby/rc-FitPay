@@ -15,10 +15,58 @@
 @implementation AppDelegate
 
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [Parse enableLocalDatastore];
+    
+    // Initialize Parse.
+    [Parse setApplicationId:@"UrkeeOAJE3GaPbPSxBgqv5sG7jowu5E7bxydmOlg"
+                  clientKey:@"XSJ5ULbEeX8pp2VFzrLtn0GXFliFeCe6Jt1if2TT"];
+    
+    // [Optional] Track statistics around application opens.
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+
+    
+    CGSize iOSDeviceScreenSize = [[UIScreen mainScreen] bounds].size;
+    NSInteger x = [[NSUserDefaults standardUserDefaults] integerForKey:@"runs"];
+    x++;
+    [[NSUserDefaults standardUserDefaults] setInteger:x forKey:@"runs"];
+    if ((iOSDeviceScreenSize.height == 568) || (iOSDeviceScreenSize.height == 480))
+    {
+        // Instantiate a new storyboard object using the storyboard file named Storyboard_iPhone35
+        UIStoryboard *iPhone35Storyboard = [UIStoryboard storyboardWithName:@"iPhone5" bundle:nil];
+        
+        // Instantiate the initial view controller object from the storyboard
+        UIViewController *initialViewController = [iPhone35Storyboard instantiateInitialViewController];
+        
+        // Instantiate a UIWindow object and initialize it with the screen size of the iOS device
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        
+        // Set the initial view controller to be the root view controller of the window object
+        self.window.rootViewController  = initialViewController;
+        
+        // Set the window object to be the key window and show it
+        [self.window makeKeyAndVisible];
+    }
+    if (iOSDeviceScreenSize.height == 667)
+    {   // iPhone 5 and iPod Touch 5th generation: 4 inch screen
+        // Instantiate a new storyboard object using the storyboard file named Storyboard_iPhone4
+        UIStoryboard *iPhone4Storyboard = [UIStoryboard storyboardWithName:@"iPhone6" bundle:nil];
+        
+        UIViewController *initialViewController = [iPhone4Storyboard instantiateInitialViewController];
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        self.window.rootViewController  = initialViewController;
+        [self.window makeKeyAndVisible];
+    }
+    
+    //
+    
+    
     return YES;
 }
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
